@@ -1,28 +1,26 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-   <meta charset="UTF-8">
-   <title>Document</title>
-</head>
-<body>
-   <div id="main">
-      {% comment %} <div id='nav'>
-         <nav>
-            {% for c in category %}
-            <a href="{% url 'category' cat_id=c.id %}">{{c.name}}</a>
-            {% endfor %}
-            
-         </nav>
-      </div> {% endcomment %}
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="main">
       {% for t in task %}
-      <div id="task-card">
-         <div id="task-title"><span>{{t.title}}</span></div>
-         <div id="task-desc"><span>{{t.desc}}</span></div>
-         <div id="task-done"><span></span></div>
-         <div id="task-category">{{t.category}}</div>
-         <div id="task-createdAt">{{t.createdAt | date:'d.b.y H:i'}}</div>
+        <div id="task-card">
+          <div id="task-title">
+            <span>{{ t.title }}</span>
+          </div>
+          <div id="task-desc">
+            <span>{{ t.desc }}</span>
+          </div>
+          <div id="task-done">
+            <span></span>
+          </div>
+          <div id="task-category">{{ t.category }}</div>
+          <div id="task-createdAt">{{ t.createdAt|date:'d.b.y H:i' }}</div>
+        </div>
       {% endfor %}
-      
-   </div>
-</body>
+    </div>
+  </body>
 </html>

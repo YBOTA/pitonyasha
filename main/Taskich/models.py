@@ -7,6 +7,11 @@ class Task(models.Model):
    done = models.BooleanField(default=False, verbose_name='Отметка о выполнеии')
    createdAt = models.DateTimeField(auto_now_add=True, verbose_name='Создано')
 
+   class Meta:
+       verbose_name = 'Задача' # название модели в ед. числе
+       ordering = ['-createdAt'] #сортировка по-умолчанию
+       unique_together = ('title','createdAt')
+
    def __str__(self):
        return self.title
    

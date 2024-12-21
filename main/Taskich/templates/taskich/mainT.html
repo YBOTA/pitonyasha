@@ -1,29 +1,48 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-   <meta charset="UTF-8">
-   <title>Document</title>
-</head>
-<body>
-   <div id="main">
-      <div id='nav'>
-         <nav>
-            {% for c in category %}
-            <a href="{% url 'category' cat_id=c.id %}">{{c.name}}</a>
-            {% endfor %}
-            
-         </nav>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="main">
+      <div id="nav">
+        <nav>
+          {% for c in category %}
+            <a href="{% url 'category' cat_id=c.id %}">{{ c.name }}</a>
+          {% endfor %}
+          <a href="{% url 'add' %}">Добавить задачу</a>
+        </nav>
       </div>
       {% for t in task %}
-      <div id="task-card">
-         <div id="task-title"><span>{{t.title}}</span></div>
-         <div id="task-desc"><span>{{t.desc}}</span></div>
-         <div id="task-done"><span></span></div>
-         <div id="task-category">{{t.category}}</div>
-         <div id="task-createdAt">{{t.createdAt | date:'d.b.y H:i'}}</div>
-         <div id='task-delete'><form method='get' action="{%url 'delete' task_id=t.id%}">{% csrf_token %}<input type='submit' value='Удалить'/></form></div>
+        <div id="task-card">
+          <div id="task-title">
+            <span>{{ t.title }}</span>
+          </div>
+          <div id="task-desc">
+            <span>{{ t.desc }}</span>
+          </div>
+          <div id="task-done">
+            <span></span>
+          </div>
+          <div id="task-category">{{ t.category }}</div>
+          <div id="task-createdAt">{{ t.createdAt|date:'d.b.y H:i' }}</div>
+          <div id="task-delete">
+            <form method="get" action="{% url 'delete' task_id=t.id %}">
+              {% csrf_token %}
+              <input type="submit" value="Удалить" />
+            </form>
+          </div>
+          <div id="task-edit">
+            <a href="{% url 'edit' t_id=t.id %}">Изменить</a>
+          </div>
+          <div id="task-done">
+            <form method="get" action="{% url 'setdone' t_id=t.id %}">
+              <input type="submit" value="Выполнено" />
+            </form>
+          </div>
+        </div>
       {% endfor %}
-      
-   </div>
-</body>
+    </div>
+  </body>
 </html>
