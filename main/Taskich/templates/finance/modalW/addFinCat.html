@@ -1,0 +1,11 @@
+<div class="modal-overlay2" id="modal-overlay2">
+    <div class="modal">
+        <form method="post" action="{% url "addFinCat" %}">
+            {% csrf_token %}
+            <label for="cat">Название категории</label>
+            <input type="text" name="cat" placeholder="Название категории">
+            <button type="submit" value="POST">Создать доход</button>
+            <button type="reset" class="close-btn2" id="close-modal-btn2">Закрыть</button>
+            </form>
+    </div>
+</div>

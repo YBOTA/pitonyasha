@@ -21,6 +21,24 @@ class Category(models.Model):
    
    def __str__(self):
        return self.name
+
+# FINANCE
+class CatFin(models.Model):
+    Cat = models.TextField()
+
+    def __str__(self):
+       return self.Cat
+
+class Finance(models.Model):
+    nameF = models.TextField(verbose_name='Название транзакции')
+    desc = models.TextField(verbose_name='Описание транзакции')
+    Income = models.BooleanField(null=True, blank=True)
+    count = models.BigIntegerField(default=0,verbose_name='Сколько')
+    category = models.ForeignKey(CatFin, on_delete=models.PROTECT,verbose_name='Категория',null=True, blank=True)
+    data = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+       return self.nameF
    
    
 

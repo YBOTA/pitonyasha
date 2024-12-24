@@ -1,0 +1,11 @@
+<div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+        <form method="POST">
+            {% csrf_token %}
+            <div>{{form.as_div}}</div>
+            <input type="hidden" name="template_name" value="addplusD">
+            <button class="close-btn" id="close-modal-btn">Закрыть</button>
+            <button type="submit">Создать доход</button>
+            </form>
+    </div>
+</div>

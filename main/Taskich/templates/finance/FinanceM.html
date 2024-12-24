@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Сортировка по выполненным</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/class.css'%}" />
+    <script src="{%static "js/finanseS.js" defer%}"></script>
+  </head>
+  <body>
+    {% for i in Lol %}
+    <div>{{i.nameF}}</div>
+    {% endfor %}
+  <button class="open-modal-btn2">Создать категорию</button>
+  <button class="open-modal-btn">Создать доход</button>
+  <button class="open-modal-btn1">Создать расход</button>
+{% include "./modalW/addFinCat.html"%}
+{% include "./modalW/addplusD.html"%}
+{% include "./modalW/addminusD.html"%}
+  </body>
+</html>

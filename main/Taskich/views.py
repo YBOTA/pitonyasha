@@ -1,8 +1,11 @@
 from django.shortcuts import render
-from django.views.generic import ListView,UpdateView, CreateView
-from .models import Task,Category
-from .form import TaskForm
+from django.views.generic import ListView,UpdateView, CreateView, View,TemplateView, FormView
+from .models import Task,Category,Finance,CatFin
+from .form import TaskForm, FinanceForm,CatFinForm
 from django.http import HttpResponseRedirect
+from django.urls import reverse,reverse_lazy
+from django.views.generic.list import MultipleObjectMixin
+
 
 class TaskListView(ListView):
     model = Task
@@ -49,6 +52,27 @@ class TaskCreateView(CreateView):
         form.save()
         return super().form_valid(form)
     
+# FINANCE
+class FinanceView(ListView,FormView):
+    model = Finance
+    context_object_name = "Lol"
+    form_class = FinanceForm
+    template_name = "finance/FinanceM.html"
+    success_url = reverse_lazy("finance")
 
-   
+    def form_valid(self,form):
+        template_name = self.request.POST.get('template_name')
 
+        instance = form.save(commit=False)
+        if template_name == 'addplusD':
+            instance.Income = True
+        elif template_name == 'addminusD':
+            instance.Income = False
+        instance.save()
+        return super().form_valid(form)
+
+def addFinCat(request):
+    if request.method == "POST":
+        cat = request.POST.get('cat')
+        CatFin.objects.create(Cat=cat)
+    return HttpResponseRedirect(reverse('finance'))
