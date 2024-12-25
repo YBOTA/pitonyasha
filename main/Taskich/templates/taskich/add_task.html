@@ -5,6 +5,9 @@
     <title>Добавление задачи</title>
   </head>
   <body>
+    <div id="nav">
+      {% include 'taskich\components\navbar.html' %}
+    </div>
     <div id="add_task">
       <form method="post">
         {% csrf_token %}

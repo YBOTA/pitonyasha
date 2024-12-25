@@ -5,6 +5,9 @@
     <title>Изменение</title>
   </head>
   <body>
+    <div id="nav">
+      {% include 'taskich\components\navbar.html' %}
+    </div>
     <div>
       <form method="POST">
         {% csrf_token %}

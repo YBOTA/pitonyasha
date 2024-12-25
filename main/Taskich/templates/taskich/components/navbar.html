@@ -1,0 +1,9 @@
+<nav>
+  <a href="{% url 'main' %}">Главная</a>
+  {% for c in category %}
+    <a href="{% url 'category' cat_id=c.id %}">{{ c.name }}</a>
+  {% endfor %}
+  <a href="{% url 'add' %}">Добавить задачу</a>
+  <a href="{% url 'done' filtre='done' %}">Выполненные задачи</a>
+  <a href="{% url 'done' filtre='nodone' %}">Не выполненные задачи</a>
+</nav>

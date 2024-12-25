@@ -12,6 +12,7 @@ class TaskListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["category"] = Category.objects.all()
+        context['form'] = TaskForm
         return context
 
 class CategoryListView(ListView):
@@ -49,6 +50,32 @@ class TaskCreateView(CreateView):
         form.save()
         return super().form_valid(form)
     
+class DoneListView(ListView):
+    queryset = Task.objects.filter(done = True)
+    context_object_name = 'task'
+    template_name = "taskich/done_filter.html"
 
-   
+
+class NoDoneTaskListView(ListView):
+    context_object_name = 'task'
+    queryset = Task.objects.filter(done = False)
+    template_name = "taskich/done_filter.html"
+
+
+class FiltreDone(ListView):
+   model = Task
+   context_object_name = 'task'
+   template_name = "taskich/done_filter.html"
+
+   def get_queryset(self):
+         print(self.kwargs)
+         if self.kwargs['filtre'] == 'done':
+               return Task.objects.filter(done =True)
+         else:
+               return Task.objects.filter(done =False)
+       
+    
+
+    
+
 

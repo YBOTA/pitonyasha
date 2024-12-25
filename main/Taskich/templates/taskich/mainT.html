@@ -7,12 +7,7 @@
   <body>
     <div id="main">
       <div id="nav">
-        <nav>
-          {% for c in category %}
-            <a href="{% url 'category' cat_id=c.id %}">{{ c.name }}</a>
-          {% endfor %}
-          <a href="{% url 'add' %}">Добавить задачу</a>
-        </nav>
+        {% include 'taskich\components\navbar.html' %}
       </div>
       {% for t in task %}
         <div id="task-card">
