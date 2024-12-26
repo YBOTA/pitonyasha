@@ -38,6 +38,13 @@
           </div>
         </div>
       {% endfor %}
+      <div id="form_add">
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_div }}
+          <button type="submit">Добавить</button>
+        </form>
+      </div>
     </div>
   </body>
 </html>

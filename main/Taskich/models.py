@@ -22,6 +22,30 @@ class Category(models.Model):
    def __str__(self):
        return self.name
    
+class Money(models.Model):
+    INCOME = 'i'
+    DEBTS = 'd'
+    KINDS = (
+        (INCOME,'Доход'),
+        (DEBTS,'Расход')
+    )
+    title = models.CharField(max_length=30, verbose_name='Наименование транзакции')
+    type_money = models.BooleanField(null=True,verbose_name='Тип транзакции')
+    category = models.ForeignKey("CategoryMoney", verbose_name=("Категория"),null=True, on_delete=models.PROTECT)
+    value = models.BigIntegerField(verbose_name='Сумма')
+    createdAt = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+
+    class Meta:
+        ordering = ['-createdAt']
+
+    def __str__(self):
+        return self.title
+    
+class CategoryMoney(models.Model):
+    name = models.CharField(max_length=20,verbose_name='Наименование категории')
+    def __str__(self):
+       return self.name
+   
 
 
 
