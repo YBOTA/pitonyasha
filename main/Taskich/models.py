@@ -1,4 +1,5 @@
 from django.db import models
+from slugify import slugify
 
 class Task(models.Model):
    title = models.CharField (max_length=50, unique=True,verbose_name='Наименование задачи')
@@ -30,10 +31,11 @@ class Money(models.Model):
         (DEBTS,'Расход')
     )
     title = models.CharField(max_length=30, verbose_name='Наименование транзакции')
-    type_money = models.BooleanField(null=True,verbose_name='Тип транзакции')
+    type_money = models.CharField( max_length=1,choices=KINDS,default=INCOME)
     category = models.ForeignKey("CategoryMoney", verbose_name=("Категория"),null=True, on_delete=models.PROTECT)
     value = models.BigIntegerField(verbose_name='Сумма')
     createdAt = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    slug = models.SlugField(unique=True,blank=True,null=True)
 
     class Meta:
         ordering = ['-createdAt']
@@ -41,10 +43,19 @@ class Money(models.Model):
     def __str__(self):
         return self.title
     
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        return super(Money, self).save(*args, **kwargs)
+    
 class CategoryMoney(models.Model):
     name = models.CharField(max_length=20,verbose_name='Наименование категории')
+    slug = models.SlugField(unique=True,blank=True,null=True)
     def __str__(self):
        return self.name
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        return super(CategoryMoney, self).save(*args, **kwargs)
    
 
 

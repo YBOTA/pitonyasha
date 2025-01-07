@@ -1,9 +1,21 @@
-<nav>
-  <a href="{% url 'main' %}">Главная</a>
-  {% for c in category %}
-    <a href="{% url 'category' cat_id=c.id %}">{{ c.name }}</a>
-  {% endfor %}
-  <a href="{% url 'add' %}">Добавить задачу</a>
-  <a href="{% url 'done' filtre='done' %}">Выполненные задачи</a>
-  <a href="{% url 'done' filtre='nodone' %}">Не выполненные задачи</a>
+<nav class="navbar navbar-expand-lg">
+  <div>
+    <a class="navbar-brand" href="{% url 'main' %}">Главная</a>
+  </div>
+  <div id="category" class="collapse navbar-collapse">
+    {% for c in category %}
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'category' cat_id=c.id %}">{{ c.name }}</a>
+        </li>
+      </ul>
+    {% endfor %}
+  </div>
+  <div id="other">
+    <a href="{% url 'add' %}">Добавить задачу</a>
+    <a href="#" class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#add">Добавить задачу</a>
+    <a href="{% url 'done' filtre='done' %}">Выполненные задачи</a>
+    <a href="{% url 'done' filtre='nodone' %}">Не выполненные задачи</a>
+    <a href="{% url 'finance' %}">Перейти к финансам</a>
+  </div>
 </nav>

@@ -3,48 +3,57 @@
   <head>
     <meta charset="UTF-8" />
     <title>Document</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/task_card.css' %}" />
   </head>
   <body>
     <div id="main">
       <div id="nav">
         {% include 'taskich\components\navbar.html' %}
       </div>
+      <div id="container" class="container">
+        {% include 'taskich\components\task_card.html' %}
+      </div>
+      <div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5">Добавить задачу</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form method="post">
+                {% csrf_token %}
+                {{ form.as_div }}
+                <button type="submit">Добавить задачу</button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+          </div>
+        </div>
+      </div>
       {% for t in task %}
-        <div id="task-card">
-          <div id="task-title">
-            <span>{{ t.title }}</span>
-          </div>
-          <div id="task-desc">
-            <span>{{ t.desc }}</span>
-          </div>
-          <div id="task-done">
-            <span></span>
-          </div>
-          <div id="task-category">{{ t.category }}</div>
-          <div id="task-createdAt">{{ t.createdAt|date:'d.b.y H:i' }}</div>
-          <div id="task-delete">
-            <form method="get" action="{% url 'delete' task_id=t.id %}">
-              {% csrf_token %}
-              <input type="submit" value="Удалить" />
-            </form>
-          </div>
-          <div id="task-edit">
-            <a href="{% url 'edit' t_id=t.id %}">Изменить</a>
-          </div>
-          <div id="task-done">
-            <form method="get" action="{% url 'setdone' t_id=t.id %}">
-              <input type="submit" value="Выполнено" />
-            </form>
+        <div class="modal fade" id="task_{{ t.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5">{{ t.title }}</h1>
+                <h2 class=""></h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body"></div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+              </div>
+            </div>
           </div>
         </div>
       {% endfor %}
-      <div id="form_add">
-        <form method="post">
-          {% csrf_token %}
-          {{ form.as_div }}
-          <button type="submit">Добавить</button>
-        </form>
-      </div>
     </div>
   </body>
 </html>

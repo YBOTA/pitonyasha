@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Финансы</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+  </head>
+  <body>
+    <nav>
+      <a href="{% url 'finance' %}">Главная</a>
+      {% for c in category %}
+        <a href="{% url 'financeCategory' slug=c.slug %}">{{ c.name }}</a>
+      {% endfor %}
+      <a href="{% url 'main' %}">Вернуться к задачам</a>
+    </nav>
+    <div id="main_finance" style="display: flex; padding: 4px;">
+      <div id="container">
+        <div id="income">
+          <div id="title-income">
+            <h1>Доход</h1>
+          </div>
+          {% for i in income %}
+            <p>{{ i.title }}</p>
+          {% endfor %}
+        </div>
+        <div id="title-debets">
+          <h1>Расход</h1>
+        </div>
+        <div id="debets">
+          {% for d in debets %}
+            <p>{{ d.title }}</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

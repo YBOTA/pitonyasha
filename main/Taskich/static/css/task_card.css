@@ -1,0 +1,5 @@
+/* Обработник иконки set done */
+
+#set-done:hover {
+   fill: green;
+}
