@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+
+    <title>{{ type_money.get_type_money_display }}</title>
+  </head>
+  <body>
+    {% for d in data %}
+      <h2>{{ d.title }}</h2>
+      <h3>{{ d.get_type_money_display }}</h3>
+    {% endfor %}
+  </body>
+</html>

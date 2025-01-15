@@ -1,7 +1,7 @@
 {% load static %}
 <div class="row">
   {% for t in task %}
-    <div class="card m-1 p-1" id="task-card" style="width: 13em;">
+    <div class="card m-1 p-1" id="task-card" style="width: 15em;">
       <div class="card-title" id="task-title">
         <div class="d-flex justify-content-between" id="title">
           <h2><a href="#" data-bs-toggle="modal" data-bs-target="#task_{{ t.id }}">{{ t.title }}</a></h2>
@@ -37,13 +37,6 @@
       <div id="task-edit">
         <a href="{% url 'edit' t_id=t.id %}">Изменить</a>
       </div>
-      {% comment %} {% if t.done == False %}
-        <div id="task-done">
-          <form method="get" action="{% url 'setdone' t_id=t.id %}">
-            <input type="submit" value="Выполнено" />
-          </form>
-        </div>
-      {% endif %} {% endcomment %}
     </div>
   {% endfor %}
 </div>

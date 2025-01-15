@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Заметки</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+  </head>
+  <body>
+    <div class="main">
+      {% include 'zametki/components/navbar.html' %}
+      <div id="zametka" class="card">
+        {% for d in data %}
+          <div id="zametka-title" class="card-header">
+            <h2>{{ d.title }}</h2>
+          </div>
+          <div id="zametka-text" class="card-body">
+            <h3>{{ d.text }}</h3>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>

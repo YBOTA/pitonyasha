@@ -10,10 +10,22 @@
   <body>
     <nav>
       <a href="{% url 'finance' %}">Главная</a>
-      {% for c in category %}
-        <a href="{% url 'financeCategory' slug=c.slug %}">{{ c.name }}</a>
-      {% endfor %}
       <a href="{% url 'main' %}">Вернуться к задачам</a>
+      <div id="sort-category">
+        <div id="sort-title">
+          <p style="margin-bottom: 0;">Сортировка по категориям</p>
+        </div>
+        {% for c in category %}
+          <a href="{% url 'financeCategory' slug=c.slug %}">{{ c.name }}</a>
+        {% endfor %}
+      </div>
+      <div id="sort-type">
+        <div id="sort-title">
+          <p style="margin-bottom: 0;">Сортировка по типу</p>
+        </div>
+        <a href="{% url 'type_money' type='i' %}">Доходы</a>
+        <a href="{% url 'type_money' type='d' %}">Расходы</a>
+      </div>
     </nav>
     <div id="main_finance" style="display: flex; padding: 4px;">
       <div id="container">

@@ -12,10 +12,9 @@
     {% endfor %}
   </div>
   <div id="other">
-    <a href="{% url 'add' %}">Добавить задачу</a>
     <a href="#" class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#add">Добавить задачу</a>
-    <a href="{% url 'done' filtre='done' %}">Выполненные задачи</a>
-    <a href="{% url 'done' filtre='nodone' %}">Не выполненные задачи</a>
     <a href="{% url 'finance' %}">Перейти к финансам</a>
+    <a href="{% url 'zametki' %}">Перейти к заметкам</a>
+    <a href="{% url 'date' %}">Тестовый режим</a>
   </div>
 </nav>

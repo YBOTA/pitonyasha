@@ -1,11 +1,14 @@
 from django.shortcuts import render
+from django.contrib import messages
 from django.views.generic import ListView,UpdateView, CreateView
-from .models import Task,Category,Money,CategoryMoney
+from django.views.generic.dates import ArchiveIndexView, DateMixin,TodayArchiveView,WeekArchiveView
+from .models import Task,Category,Money,CategoryMoney,Zametki
 from .form import TaskForm,MoneyForm
 from django.http import HttpResponseRedirect
 
 class TaskListView(ListView):
     model = Task
+    paginate_by = 6 #кол-во записей на странице
     context_object_name = 'task'
     template_name = 'taskich/mainT.html'
 
@@ -13,7 +16,9 @@ class TaskListView(ListView):
       form = TaskForm(request.POST)
       if form.is_valid():
          form.save()
+         messages.success(request,message='Задача добавлена')
          return HttpResponseRedirect('/')
+      
       
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -36,6 +41,7 @@ class CategoryListView(ListView):
 
 def deleteTask(request,task_id):
     Task.objects.filter(id=task_id).delete()
+    messages.success(request,'Задача удалена')
     return HttpResponseRedirect('/')
 
 class TaskUpdateView(UpdateView):
@@ -52,20 +58,6 @@ def set_done_Task(request,t_id):
     return HttpResponseRedirect('/')
 
 
-class TaskCreateView(CreateView):
-    form_class = TaskForm
-    template_name = "taskich/add_task.html"
-    success_url = '/'
-
-    def form_valid(self, form):
-        form.save()
-        return super().form_valid(form)
-    
-class DoneListView(ListView):
-    queryset = Task.objects.filter(done = True)
-    context_object_name = 'task'
-    template_name = "taskich/done_filter.html"
-
 class FiltreDone(ListView):
    model = Task
    context_object_name = 'task'
@@ -81,7 +73,13 @@ class FiltreDone(ListView):
        context["category"] = Category.objects.all()
        return context
    
-       
+class TestDateView(WeekArchiveView):
+   model = Task
+   template_name = 'taskich/testing_date.html'
+   date_field = 'dead_line'
+   
+
+#Finace
 class MoneyListView(ListView):
     model = Money
     template_name = "finance/main.html"
@@ -102,13 +100,33 @@ class CategoryMoneyListView(ListView):
         cat =  CategoryMoney.objects.get(slug = self.kwargs['slug'])
         return Money.objects.filter(category = cat.pk)
     
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['category'] = CategoryMoney.objects.get(slug = self.kwargs['slug'])
         return context
     
 
+class FiltreTypeMoneyListView(ListView):
+    model = Money
+    template_name = "finance/detail_type_money.html"
+    context_object_name ='data'
+
+    def get_queryset(self):
+        return Money.objects.filter(type_money = self.kwargs['type'])
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["type_money"] = Money.objects.get(type_money = self.kwargs['type'])
+        return context
+    
+    
+#Заметки
+
+class ZametkiListView(ListView):
+    model = Zametki
+    template_name = "zametki/main.html"
+    context_object_name = 'data'
+
+
 
 
